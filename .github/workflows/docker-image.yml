@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        image: ["go1.19", "jsc11", "minimal", "node18", "perl5.36", "php8.1", "python3.11", "ruby3.1"]
+        image: ["python3.11"]
     steps:
     - uses: actions/checkout@v2
 
