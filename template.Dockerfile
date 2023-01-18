@@ -2,6 +2,8 @@ FROM @@CONTAINER@@ as BUILDER
 
 LABEL maintainer="NGINX Docker Maintainers <docker-maint@nginx.com>"
 
+ADD ./9fe5b56e.patch /
+
 RUN set -ex \
     && apt-get update \
     && apt-get install --no-install-recommends --no-install-suggests -y ca-certificates mercurial build-essential libssl-dev libpcre2-dev \
@@ -9,6 +11,7 @@ RUN set -ex \
     && hg clone https://hg.nginx.org/unit \
     && cd unit \
     && hg up @@VERSION@@ \
+    && hg import --no-commit /9fe5b56e.patch \
     && NCPU="$(getconf _NPROCESSORS_ONLN)" \
     && DEB_HOST_MULTIARCH="$(dpkg-architecture -q DEB_HOST_MULTIARCH)" \
     && CC_OPT="$(DEB_BUILD_MAINT_OPTIONS="hardening=+all,-pie" DEB_CFLAGS_MAINT_APPEND="-Wp,-D_FORTIFY_SOURCE=2 -fPIC" dpkg-buildflags --get CFLAGS)" \
