@@ -10,7 +10,6 @@ RUN set -ex \
     && mkdir -p /usr/lib/unit/modules /usr/lib/unit/debug-modules \
     && hg clone https://hg.nginx.org/unit \
     && cd unit \
-    && hg up @@VERSION@@ \
     && hg import --no-commit /9fe5b56e.patch \
     && NCPU="$(getconf _NPROCESSORS_ONLN)" \
     && DEB_HOST_MULTIARCH="$(dpkg-architecture -q DEB_HOST_MULTIARCH)" \
